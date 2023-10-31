@@ -1,14 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ventadezapatos.VentanaPrincipalController">
+<AnchorPane id="AnchorPane" prefHeight="643.0" prefWidth="1087.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ventadezapatos.VentanaPrincipalController">
     <children>
-        <Button layoutX="126" layoutY="90" text="Click Me!" onAction="#handleButtonAction" fx:id="button" />
-        <Label layoutX="126" layoutY="120" minHeight="16" minWidth="69" fx:id="label" />
+        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+      <Pane layoutX="-1.0" prefHeight="233.0" prefWidth="1087.0" style="-fx-background-color: EDC4B3;" />
+      <Pane layoutY="219.0" prefHeight="427.0" prefWidth="1087.0" style="-fx-background-color: FFFFFF;">
+         <children>
+            <ImageView fitHeight="362.0" fitWidth="254.0" layoutX="35.0" layoutY="-45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Imagenes/WhatsApp%20Image%202023-10-31%20at%209.03.38%20AM.jpeg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="157.0" fitWidth="461.0" layoutX="315.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Imagenes/WhatsApp%20Image%202023-10-31%20at%208.57.07%20AM.jpeg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="343.0" fitWidth="254.0" layoutX="796.0" layoutY="-45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Imagenes/WhatsApp%20Image%202023-10-31%20at%208.57.24%20AM.jpeg" />
+               </image>
+            </ImageView>
+            <Button fx:id="ButtonWomen" layoutX="69.0" layoutY="304.0" mnemonicParsing="false" onAction="#womenb" style="-fx-background-color: ffffff;" text="Women">
+               <font>
+                  <Font name="System Bold Italic" size="37.0" />
+               </font></Button>
+            <Button fx:id="Bbaby" layoutX="459.0" layoutY="304.0" mnemonicParsing="false" onAction="#BabyB" style="-fx-background-color: ffffff;" text="Baby">
+               <font>
+                  <Font name="System Bold Italic" size="37.0" />
+               </font>
+            </Button>
+            <Button fx:id="Bmen" layoutX="859.0" layoutY="304.0" mnemonicParsing="false" onAction="#MenB" style="-fx-background-color: ffffff;" text="Men">
+               <font>
+                  <Font name="System Bold Italic" size="37.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
     </children>
 </AnchorPane>
