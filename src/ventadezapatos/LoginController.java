@@ -14,7 +14,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
@@ -22,16 +24,16 @@ import javafx.stage.Stage;
  *
  * @author jesus
  */
-public class ZapatosHombresController implements Initializable {
+public class LoginController implements Initializable {
 
     @FXML
-    private Button menup;
+    private Button LOGEAR;
     @FXML
-    private Button bcom1;
+    private Button Cancelacion;
     @FXML
-    private Button bcom2;
+    private TextField usuario;
     @FXML
-    private Button bcom3;
+    private TextField contra;
 
     /**
      * Initializes the controller class.
@@ -42,13 +44,25 @@ public class ZapatosHombresController implements Initializable {
     }
 
     @FXML
-    private void regresar(ActionEvent event) throws IOException {
-        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow(); // Obten la referencia al Stage actual
-        openwindows(currentStage);
+    private void Log(ActionEvent event) throws IOException {
+        if (usuario.getText().equalsIgnoreCase("Cooperativa") && contra.getText().equals("2023")) {
+            // Crear una nueva ventana e invocar el método openVentanaTabla
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow(); // Obten la referencia al Stage actual
+            openwindows(currentStage);
+            usuario.setText("");
+            contra.setText("");
+        } else if ((usuario.getText() == null ? ("Cooperativa") != null : !usuario.getText().equalsIgnoreCase("Cooperativa")) && contra.getText() != ("2023")) {
+            // Mostrar un cuadro de diálogo de alerta si los datos de inicio de sesión son incorrectos
+            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+            alerta.setTitle("Datos Erroneos");
+            alerta.setHeaderText("Vuelva a ingresar los datos");
+            alerta.setContentText("Los datos ingresados no son validos");
+            alerta.showAndWait();
+        }
     }
 
     public void openwindows(Stage previousStage) throws IOException {
-        // Crea un nuevo Stage para la ventana principal
+
         Stage newStage = new Stage();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("VentanaPrincipal.fxml"));
@@ -68,15 +82,8 @@ public class ZapatosHombresController implements Initializable {
     }
 
     @FXML
-    private void comp1(ActionEvent event) {
-    }
-
-    @FXML
-    private void comb2(ActionEvent event) {
-    }
-
-    @FXML
-    private void comb3(ActionEvent event) {
+    private void Cancel(ActionEvent event) {
+        System.exit(0);
     }
 
 }

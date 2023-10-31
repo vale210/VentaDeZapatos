@@ -25,7 +25,7 @@
                         <Image url="@../Imagenes/WhatsApp%20Image%202023-10-31%20at%2010.30.36%20AM.jpeg" />
                      </image>
                   </ImageView>
-                  <Button layoutX="39.0" layoutY="48.0" mnemonicParsing="false" style="-fx-background-color: CDB4DB;" text="Menu Principal">
+                  <Button fx:id="menup" layoutX="39.0" layoutY="48.0" mnemonicParsing="false" onAction="#regresar" style="-fx-background-color: CDB4DB;" text="Menu Principal">
                      <font>
                         <Font name="System Bold Italic" size="24.0" />
                      </font>
@@ -41,7 +41,7 @@
                      </font>
                   </Label>
                   <Label layoutX="192.0" layoutY="416.0" text="NIKE" />
-                  <Button layoutX="146.0" layoutY="440.0" mnemonicParsing="false" style="-fx-background-color: CDB4DB;" text="Comprar">
+                  <Button fx:id="bcom1" layoutX="146.0" layoutY="440.0" mnemonicParsing="false" onAction="#comp1" style="-fx-background-color: CDB4DB;" text="Comprar">
                      <font>
                         <Font name="System Bold" size="21.0" />
                      </font>
@@ -57,7 +57,7 @@
                      </font>
                   </Label>
                   <Label layoutX="509.0" layoutY="418.0" text="NIKE" />
-                  <Button layoutX="463.0" layoutY="442.0" mnemonicParsing="false" style="-fx-background-color: CDB4DB;" text="Comprar">
+                  <Button fx:id="bcom2" layoutX="463.0" layoutY="442.0" mnemonicParsing="false" onAction="#comb2" style="-fx-background-color: CDB4DB;" text="Comprar">
                      <font>
                         <Font name="System Bold" size="21.0" />
                      </font>
@@ -73,7 +73,7 @@
                      </font>
                   </Label>
                   <Label layoutX="812.0" layoutY="420.0" text="NIKE" />
-                  <Button layoutX="766.0" layoutY="444.0" mnemonicParsing="false" style="-fx-background-color: CDB4DB;" text="Comprar">
+                  <Button fx:id="bcom3" layoutX="766.0" layoutY="444.0" mnemonicParsing="false" onAction="#comb3" style="-fx-background-color: CDB4DB;" text="Comprar">
                      <font>
                         <Font name="System Bold" size="21.0" />
                      </font>
