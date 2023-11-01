@@ -9,8 +9,8 @@ package ventadezapatos;
  * @author jesus
  */
 public class Nodo {
-    String marca;
     String ID;
+    String marca;
     double precio;
     int talla;
     int unidades;
@@ -19,9 +19,9 @@ public class Nodo {
     
     Nodo sig, ant;
 
-    public Nodo(String marca, String ID, double precio, int talla, int unidades, String color, String tipo) {
-        this.marca = marca;
+    public Nodo(String ID, String marca, double precio, int talla, int unidades, String color, String tipo) {
         this.ID = ID;
+        this.marca = marca;
         this.precio = precio;
         this.talla = talla;
         this.unidades = unidades;

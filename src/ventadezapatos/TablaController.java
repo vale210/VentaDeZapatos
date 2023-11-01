@@ -6,10 +6,9 @@ package ventadezapatos;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import javafx.collections.FXCollections;
@@ -21,12 +20,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -64,6 +66,20 @@ public class TablaController implements Initializable {
 
     @FXML
     private Button menup;
+    @FXML
+    private TextField IDE;
+    @FXML
+    private TextField PRECIO;
+    @FXML
+    private TextField MARCA;
+    @FXML
+    private TextField TALLA;
+    @FXML
+    private TextField COLOR;
+    @FXML
+    private TextField UNIDADES;
+    @FXML
+    private TextField TIPO;
 
     /**
      * Initializes the controller class.
@@ -88,9 +104,8 @@ public class TablaController implements Initializable {
             scanner.close();
         } catch (FileNotFoundException e) {
             // Si ocurre una excepción FileNotFoundException, se imprime un mensaje de error
-            JOptionPane.showMessageDialog(null, "El archivo no se pudo encontrar.");
+            System.out.println("El archivo no se pudo encontrar");
         }
-
         // Configuración de las propiedades de las columnas de la tabla
         // Se utiliza PropertyValueFactory para asignar el valor de los atributos de "nodo" a las celdas de la tabla
         ide.setCellValueFactory(new PropertyValueFactory<>("ID"));
@@ -147,44 +162,206 @@ public class TablaController implements Initializable {
 
     @FXML
     private void CompID(ActionEvent event) {
-    }
+        // Obtener el automóvil seleccionado en la tabla
+        Nodo zap = tabla.getSelectionModel().getSelectedItem();
+        // Verificar que se ha seleccionado un automóvil
+        if (zap == null) {
+            // Mostrar mensaje de advertencia si no se ha seleccionado ningún automóvil
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setHeaderText("No se ha seleccionado ningún zapato");
+            alerta.setContentText("Seleccione un zapato de la tabla para comprar.");
+            alerta.showAndWait();
+            return;
+        }
 
-    @FXML
-    private void Busqueda(ActionEvent event) {
-    }
+        // Crear un diálogo para obtener la cantidad de unidades a comprar
+        TextInputDialog dialogo = new TextInputDialog("");
+        dialogo.setTitle("Cantidad a comprar");
+        dialogo.setHeaderText(null);
+        dialogo.setContentText("Ingrese la cantidad a comprar, debe ser menor a " + zap.getUnidades() + "\n");
+        Optional<String> cantidad = dialogo.showAndWait();
 
-    @FXML
-    private void Push(ActionEvent event) {
-    }
+        // Verificar que la entrada del usuario para la cantidad de unidades sea un número entero positivo
+        if (!cantidad.isPresent()) {
+            return; // El usuario ha cerrado el diálogo
+        } else if (!cantidad.get().matches("^[1-9]\\d*$")) {
+            // La entrada no es un número entero positivo
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setHeaderText("Entrada inválida");
+            alerta.setContentText("La cantidad de unidades debe ser un número entero positivo.");
+            alerta.showAndWait();
+            return;
+        }
 
-    @FXML
-    private void Pop(ActionEvent event) {
-        if (!nodos.isEmpty()) {
-            // Actualizar la tabla
-            int lastIndex = tabla.getItems().size() - 1;
-            tabla.getItems().remove(lastIndex);
+        int cantidadComprar = Integer.parseInt(cantidad.get());
 
-            // Eliminar el último elemento del archivo (suponiendo que estás usando ObjectOutputStream)
-            File archivo = new File("src/Archivo/archivo.txt");
+        // Verificar si hay suficientes unidades disponibles para la compra
+        if (cantidadComprar > zap.getUnidades()) {
+            // Mostrar mensaje de advertencia si la cantidad de unidades no está disponible
+            Alert ale = new Alert(Alert.AlertType.INFORMATION);
+            ale.setHeaderText("Información");
+            ale.setContentText("La cantidad de unidades no está disponible");
+            ale.showAndWait();
+            return;
+        }
 
-            try {
-                // Crear un flujo de salida de archivo
-                FileOutputStream fileOutputStream = new FileOutputStream(archivo);
-                ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        if (zap.getUnidades() > 0) {
+            // Actualizar la cantidad de unidades y los enlaces en la lista
+            zap.setUnidades(zap.getUnidades() - cantidadComprar);
 
-                // Crear un ObservableList temporal sin el último elemento
-                ObservableList<Nodo> nodosTemp = FXCollections.observableArrayList(nodos.subList(0, nodos.size() - 1));
-                
-                // Escribir el ObservableList temporal en el archivo
-                objectOutputStream.writeObject(nodosTemp);
+            // Actualizar la tabla de autos
+            tabla.refresh();
 
-                // Cerrar el flujo de salida
-                objectOutputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-                // Manejar excepciones de E/S apropiadamente
+            // Mostrar información de la compra y confirmar el pago
+            Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+            alerta.setHeaderText("¿Deseas comprar el zapato " + zap.getMarca() + "?");
+            alerta.setContentText("El precio del zapato es: " + zap.getPrecio() + "\nEl total a pagar es: " + (zap.getPrecio() * cantidadComprar));
+            Optional<ButtonType> result = alerta.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                // Pago realizado correctamente
+                Alert notify = new Alert(Alert.AlertType.INFORMATION);
+                notify.setTitle("¡Proceso Exitoso!");
+                notify.setHeaderText("Cargando información...");
+                notify.setContentText("Pago Realizado Correctamente!");
+                notify.show();
+            }
+
+            if (zap.getUnidades() <= 0) {
+                // Si no quedan unidades disponibles, eliminar el automóvil de la lista
+                nodos.remove(zap);
+
+                // Actualizar la tabla de zapatos
+                tabla.setItems(null);
+                tabla.layout();
+                tabla.setItems(FXCollections.observableList(nodos));
+                // Mostrar mensaje de información si no quedan unidades disponibles
+                Alert ale = new Alert(Alert.AlertType.INFORMATION);
+                ale.setHeaderText("Información");
+                ale.setContentText("Ya no quedan unidades disponibles");
+                ale.showAndWait();
             }
         }
     }
 
+    @FXML
+    private void Busqueda(ActionEvent event) {
+        // Crear un cuadro de diálogo de entrada de texto para solicitar la id al usuario
+        TextInputDialog dialogo = new TextInputDialog("");
+        dialogo.setTitle("Buscar automóvil");
+        dialogo.setHeaderText(null);
+        dialogo.setContentText("Ingrese la matrícula:");
+
+        // Mostrar el cuadro de diálogo y obtener la id ingresada por el usuario
+        Optional<String> ID = dialogo.showAndWait();
+
+        if (ID.isPresent()) {
+            if (nodos.isEmpty()) {
+                // Mostrar mensaje de advertencia si la lista está vacía
+                Alert alerta = new Alert(Alert.AlertType.WARNING);
+                alerta.setHeaderText("Lista vacía");
+                alerta.setContentText("No hay zapatos en la lista.");
+                alerta.showAndWait();
+                return;
+            }
+
+            // Buscar la id en la lista de nodos
+            Nodo actual = nodos.get(0);
+            do {
+                if (actual.getID().equals(ID.get())) {
+                    // Mostrar información del automóvil si se encuentra la id
+                    Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+                    alerta.setHeaderText("Información del zapato");
+                    alerta.setTitle("Zapato encontrado");
+                    alerta.setContentText("Precio: $" + actual.getPrecio()+ " dolares"
+                            + "\nMarca: " + actual.getMarca()
+                            + "\nTalla: " + actual.getTalla()
+                            + "\nUnidades: " + actual.getUnidades()
+                            + "\nColor: "+ actual.getColor()
+                            + "\nTipo: "+ actual.getTipo());
+                    alerta.showAndWait();
+                    return; // Salir del método si se encuentra la id
+                }
+                actual = actual.getSig();
+            } while (actual != nodos.get(0)); // Continuar mientras no se regrese al primer nodo
+
+            // Mostrar mensaje de advertencia si no se encuentra la id
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setHeaderText("ID no encontrada");
+            alerta.setContentText("No se encontró ningún zapato con la ID ingresada.");
+            alerta.showAndWait();
+        }
+    }
+
+    @FXML
+    private void Push(ActionEvent event) {
+        // Verificar si el campo de texto "txtmod" no está vacío
+        if (!"".equals(IDE.getText().trim()) || !"".equals(MARCA.getText().trim()) || !"".equals(PRECIO.getText().trim()) || !"".equals(TALLA.getText().trim())
+                || !"".equals(UNIDADES.getText().trim()) || !"".equals(COLOR.getText().trim()) || !"".equals(TIPO.getText().trim())) {
+            // Crear un nuevo nodo con los datos ingresados en los campos de texto
+            Nodo nuevo = new Nodo(IDE.getText().trim(), MARCA.getText().trim(), Double.parseDouble(PRECIO.getText().trim()),
+                    Integer.parseInt(TALLA.getText().trim()), Integer.parseInt(UNIDADES.getText().trim()), COLOR.getText().trim(), TIPO.getText().trim());
+            // Mostrar mensaje de proceso exitoso
+            Alert alertas = new Alert(Alert.AlertType.INFORMATION);
+            alertas.setTitle("Proceso Exitoso");
+            alertas.setContentText("Nodo agregado al inicio de la lista");
+            alertas.showAndWait();
+            if (nodos.isEmpty()) {
+                // Si la lista está vacía, hacer que el nuevo nodo apunte a sí mismo
+                nuevo.setSig(nuevo); // El único nodo apunta a sí mismo
+            } else {
+                // Establecer las referencias del nuevo nodo y el primer nodo actual
+                nuevo.setSig(nodos.get(0)); // El nuevo nodo apunta al primer nodo actual
+                nodos.get(nodos.size() - 1).setSig(nuevo); // El último nodo actual apunta al nuevo nodo
+            }
+            // Agregar el nuevo nodo al inicio de la lista
+            nodos.add(0, nuevo);
+            // Actualizar la tabla y limpiar los campos de texto
+            tabla.setItems(nodos);
+            tabla.refresh();
+            IDE.setText("");
+            MARCA.setText("");
+            PRECIO.setText("");
+            TALLA.setText("");
+            UNIDADES.setText("");
+            COLOR.setText("");
+            TIPO.setText("");
+        } else {
+            // Mostrar mensaje de advertencia sobre campos vacíos
+            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+            alerta.setHeaderText("Mensaje de informacion");
+            alerta.setTitle("Dialogo de advertencia");
+            alerta.setContentText("Es necesario escribir todos los datos");
+            // Actualizar la tabla y limpiar los campos de texto
+            tabla.setItems(nodos);
+            tabla.refresh();
+            IDE.setText("");
+            MARCA.setText("");
+            PRECIO.setText("");
+            TALLA.setText("");
+            UNIDADES.setText("");
+            COLOR.setText("");
+            TIPO.setText("");
+            alerta.showAndWait();
+        }
+    }
+
+    @FXML
+    private void Pop(ActionEvent event) {
+        // Verificar si la pila no está vacía
+        if (!nodos.isEmpty()) {
+            // Eliminar el último elemento de la pila
+            nodos.remove(nodos.size() - 1);
+
+            // Verificar si la pila aún no está vacía después de eliminar el elemento
+            if (!nodos.isEmpty()) {
+                // Establecer el nodo siguiente (sig) del nuevo último elemento en la pila como null
+                nodos.get(nodos.size() - 1).sig = null;
+            }
+            Alert ale = new Alert(Alert.AlertType.INFORMATION);
+            ale.setHeaderText("Información");
+            ale.setContentText("Elemento eliminado al final de la lista!");
+            ale.showAndWait();
+            tabla.refresh();
+        }
+    }
 }

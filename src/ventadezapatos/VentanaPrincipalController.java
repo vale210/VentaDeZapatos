@@ -33,7 +33,7 @@ public class VentanaPrincipalController implements Initializable {
     @FXML
     private Button Bmen;
     @FXML
-    private Button table;
+    private Button tablaaa;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -57,11 +57,6 @@ public class VentanaPrincipalController implements Initializable {
         openWindow("ZapatosHombres.fxml", stage);
     }
 
-    @FXML
-    private void vertabla(ActionEvent event) throws IOException {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        openWindow("Tabla.fxml", stage);
-    }
 
     private void openWindow(String fxmlFileName, Stage stage) throws IOException {
         // Crear un nuevo cargador de FXML
@@ -78,6 +73,12 @@ public class VentanaPrincipalController implements Initializable {
         // Establecer la nueva escena como la escena de la ventana
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    private void ventanatabla(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        openWindow("Tabla.fxml", stage);
     }
 
 }
