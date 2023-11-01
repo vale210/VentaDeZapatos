@@ -14,17 +14,37 @@ public class Nodo {
     double precio;
     int talla;
     int unidades;
+    String color;
+    String tipo;
     
     Nodo sig, ant;
-    
-    public Nodo(String marca, String ID, double precio, int talla, int unidades) {
+
+    public Nodo(String marca, String ID, double precio, int talla, int unidades, String color, String tipo) {
         this.marca = marca;
         this.ID = ID;
         this.precio = precio;
         this.talla = talla;
         this.unidades = unidades;
+        this.color = color;
+        this.tipo = tipo;
         sig = null;
         ant = null;
+    }
+    
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getMarca() {

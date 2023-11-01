@@ -32,6 +32,8 @@ public class VentanaPrincipalController implements Initializable {
     private Button Bbaby;
     @FXML
     private Button Bmen;
+    @FXML
+    private Button table;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -53,6 +55,12 @@ public class VentanaPrincipalController implements Initializable {
     private void MenB(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         openWindow("ZapatosHombres.fxml", stage);
+    }
+
+    @FXML
+    private void vertabla(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        openWindow("Tabla.fxml", stage);
     }
 
     private void openWindow(String fxmlFileName, Stage stage) throws IOException {
