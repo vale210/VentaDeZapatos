@@ -47,9 +47,8 @@ public class VentanaPrincipalController implements Initializable {
     }
 
     @FXML
-    private void BabyB(ActionEvent event) throws IOException {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        openWindow("VentanaBebes.fxml", stage);
+    private void BabyB(ActionEvent event) {
+        // No hay lógica asociada a este botón en tu código original.
     }
 
     @FXML

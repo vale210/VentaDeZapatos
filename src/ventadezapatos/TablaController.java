@@ -4,10 +4,8 @@
  */
 package ventadezapatos;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -170,9 +168,9 @@ public class TablaController implements Initializable {
     private void CompID(ActionEvent event) {
         // Obtener el automóvil seleccionado en la tabla
         Nodo zap = tabla.getSelectionModel().getSelectedItem();
-
+        // Verificar que se ha seleccionado un automóvil
         if (zap == null) {
-            // Mostrar mensaje de advertencia si no se ha seleccionado ningún zapato
+            // Mostrar mensaje de advertencia si no se ha seleccionado ningún automóvil
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setHeaderText("No se ha seleccionado ningún zapato");
             alerta.setContentText("Seleccione un zapato de la tabla para comprar.");
@@ -187,6 +185,7 @@ public class TablaController implements Initializable {
         dialogo.setContentText("Ingrese la cantidad a comprar, debe ser menor a " + zap.getUnidades() + "\n");
         Optional<String> cantidad = dialogo.showAndWait();
 
+        // Verificar que la entrada del usuario para la cantidad de unidades sea un número entero positivo
         if (!cantidad.isPresent()) {
             return; // El usuario ha cerrado el diálogo
         } else if (!cantidad.get().matches("^[1-9]\\d*$")) {
@@ -200,6 +199,7 @@ public class TablaController implements Initializable {
 
         int cantidadComprar = Integer.parseInt(cantidad.get());
 
+        // Verificar si hay suficientes unidades disponibles para la compra
         if (cantidadComprar > zap.getUnidades()) {
             // Mostrar mensaje de advertencia si la cantidad de unidades no está disponible
             Alert ale = new Alert(Alert.AlertType.INFORMATION);
@@ -209,48 +209,12 @@ public class TablaController implements Initializable {
             return;
         }
 
-        // Actualizar la cantidad de unidades en el objeto Nodo
-        zap.setUnidades(zap.getUnidades() - cantidadComprar);
+        if (zap.getUnidades() > 0) {
+            // Actualizar la cantidad de unidades y los enlaces en la lista
+            zap.setUnidades(zap.getUnidades() - cantidadComprar);
 
-        // Abre el archivo para lectura y escritura
-        String archivoRuta = "src/Archivo/archivo.txt";
-        File archivo = new File(archivoRuta);
-
-        try {
-            // Crear un ObservableList para almacenar las líneas del archivo
-            ObservableList<String> lineas = FXCollections.observableArrayList();
-
-            // Leer todo el contenido del archivo y almacenarlo en el ObservableList
-            Scanner scanner = new Scanner(archivo);
-            while (scanner.hasNextLine()) {
-                lineas.add(scanner.nextLine());
-            }
-            scanner.close();
-
-            // Encuentra y actualiza el elemento correspondiente en el ObservableList
-            for (int i = 0; i < lineas.size(); i++) {
-                String[] elementos = lineas.get(i).split(",");
-                if (elementos.length >= 5 && elementos[0].equals(zap.getID())) {
-                    int unidades = Integer.parseInt(elementos[4]);
-                    unidades -= cantidadComprar;
-                    elementos[4] = Integer.toString(unidades);
-                    lineas.set(i, String.join(",", elementos));
-                    break;
-                }
-            }
-
-            // Abre el archivo nuevamente para escritura
-            FileWriter fileWriter = new FileWriter(archivoRuta);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
-            // Escribe todas las líneas actualizadas en el archivo
-            for (String linea : lineas) {
-                bufferedWriter.write(linea);
-                bufferedWriter.newLine();
-            }
-
-            // Cierra el BufferedWriter
-            bufferedWriter.close();
+            // Actualizar la tabla de autos
+            tabla.refresh();
 
             // Mostrar información de la compra y confirmar el pago
             Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
@@ -275,22 +239,12 @@ public class TablaController implements Initializable {
                 tabla.setItems(null);
                 tabla.layout();
                 tabla.setItems(FXCollections.observableList(nodos));
-
                 // Mostrar mensaje de información si no quedan unidades disponibles
                 Alert ale = new Alert(Alert.AlertType.INFORMATION);
                 ale.setHeaderText("Información");
                 ale.setContentText("Ya no quedan unidades disponibles");
                 ale.showAndWait();
             }
-
-            // Actualizar la tabla
-            tabla.refresh();
-        } catch (IOException e) {
-            // Mostrar un mensaje de error en caso de excepción
-            Alert alerta = new Alert(Alert.AlertType.ERROR);
-            alerta.setHeaderText("Error al actualizar el archivo");
-            alerta.setContentText("Se produjo un error al actualizar el archivo.");
-            alerta.showAndWait();
         }
     }
 
@@ -298,9 +252,9 @@ public class TablaController implements Initializable {
     private void Busqueda(ActionEvent event) {
         // Crear un cuadro de diálogo de entrada de texto para solicitar la id al usuario
         TextInputDialog dialogo = new TextInputDialog("");
-        dialogo.setTitle("Buscar zapatos");
+        dialogo.setTitle("Buscar automóvil");
         dialogo.setHeaderText(null);
-        dialogo.setContentText("Ingrese la ID:");
+        dialogo.setContentText("Ingrese la matrícula:");
 
         // Mostrar el cuadro de diálogo y obtener la id ingresada por el usuario
         Optional<String> ID = dialogo.showAndWait();
@@ -345,82 +299,53 @@ public class TablaController implements Initializable {
 
     @FXML
     private void Push(ActionEvent event) {
-        // Verificar si todos los campos de texto están llenos
-        if (IDE.getText().trim().isEmpty() || MARCA.getText().trim().isEmpty() || PRECIO.getText().trim().isEmpty() || TALLA.getText().trim().isEmpty()
-                || UNIDADES.getText().trim().isEmpty() || COLOR.getText().trim().isEmpty() || TIPO.getText().trim().isEmpty()) {
+        // Verificar si el campo de texto "txtmod" no está vacío
+        if (!"".equals(IDE.getText().trim()) || !"".equals(MARCA.getText().trim()) || !"".equals(PRECIO.getText().trim()) || !"".equals(TALLA.getText().trim())
+                || !"".equals(UNIDADES.getText().trim()) || !"".equals(COLOR.getText().trim()) || !"".equals(TIPO.getText().trim())) {
+            // Crear un nuevo nodo con los datos ingresados en los campos de texto
+            Nodo nuevo = new Nodo(IDE.getText().trim(), MARCA.getText().trim(), Double.parseDouble(PRECIO.getText().trim()),
+                    Integer.parseInt(TALLA.getText().trim()), Integer.parseInt(UNIDADES.getText().trim()), COLOR.getText().trim(), TIPO.getText().trim());
+            // Mostrar mensaje de proceso exitoso
+            Alert alertas = new Alert(Alert.AlertType.INFORMATION);
+            alertas.setTitle("Proceso Exitoso");
+            alertas.setContentText("Nodo agregado al inicio de la lista");
+            alertas.showAndWait();
+            if (nodos.isEmpty()) {
+                // Si la lista está vacía, hacer que el nuevo nodo apunte a sí mismo
+                nuevo.setSig(nuevo); // El único nodo apunta a sí mismo
+            } else {
+                // Establecer las referencias del nuevo nodo y el primer nodo actual
+                nuevo.setSig(nodos.get(0)); // El nuevo nodo apunta al primer nodo actual
+                nodos.get(nodos.size() - 1).setSig(nuevo); // El último nodo actual apunta al nuevo nodo
+            }
+            // Agregar el nuevo nodo al inicio de la lista
+            nodos.add(0, nuevo);
+            // Actualizar la tabla y limpiar los campos de texto
+            tabla.setItems(nodos);
+            tabla.refresh();
+            IDE.setText("");
+            MARCA.setText("");
+            PRECIO.setText("");
+            TALLA.setText("");
+            UNIDADES.setText("");
+            COLOR.setText("");
+            TIPO.setText("");
+        } else {
             // Mostrar mensaje de advertencia sobre campos vacíos
             Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-            alerta.setHeaderText("Mensaje de información");
-            alerta.setTitle("Diálogo de advertencia");
-            alerta.setContentText("Es necesario llenar todos los campos");
-            alerta.showAndWait();
-            return;
-        }
-
-        // Crear un nuevo nodo con los datos ingresados en los campos de texto
-        Nodo nuevo = new Nodo(IDE.getText().trim(), MARCA.getText().trim(), Double.parseDouble(PRECIO.getText().trim()),
-                Integer.parseInt(TALLA.getText().trim()), Integer.parseInt(UNIDADES.getText().trim()), COLOR.getText().trim(), TIPO.getText().trim());
-
-        // Agregar el nuevo nodo al inicio de la lista
-        if (!nodos.isEmpty()) {
-            Nodo ultimo = nodos.get(nodos.size() - 1);
-            nuevo.setSig(nodos.get(0)); // El nuevo nodo apunta al primer nodo actual
-            ultimo.setSig(nuevo); // El último nodo actual apunta al nuevo nodo
-        } else {
-            // Si la lista está vacía, hacer que el nuevo nodo apunte a sí mismo
-            nuevo.setSig(nuevo); // El único nodo apunta a sí mismo
-        }
-        nodos.add(0, nuevo);
-
-        // Actualizar la tabla y limpiar los campos de texto
-        tabla.setItems(nodos);
-        tabla.refresh();
-        IDE.clear();
-        MARCA.clear();
-        PRECIO.clear();
-        TALLA.clear();
-        UNIDADES.clear();
-        COLOR.clear();
-        TIPO.clear();
-
-        // Guardar el nuevo nodo en el archivo al inicio del archivo
-        guardarNodoEnArchivoInicio(nuevo);
-    }
-
-    private void guardarNodoEnArchivoInicio(Nodo nodo) {
-        // Ruta del archivo
-        String archivoRuta = "src/Archivo/archivo.txt";
-
-        try {
-            // Leer el contenido actual del archivo
-            Scanner scanner = new Scanner(new File(archivoRuta));
-            StringBuilder fileContent = new StringBuilder();
-
-            while (scanner.hasNextLine()) {
-                fileContent.append(scanner.nextLine()).append("\n");
-            }
-            scanner.close();
-
-            // Agregar los datos del nuevo nodo al inicio del contenido del archivo
-            String nuevoDato = nodo.getID() + "," + nodo.getMarca() + "," + nodo.getPrecio() + "," + nodo.getTalla() + "," + nodo.getUnidades() + "," + nodo.getColor() + "," + nodo.getTipo() + "\n";
-            fileContent.insert(0, nuevoDato);
-
-            // Escribir el contenido actualizado en el archivo
-            FileWriter fileWriter = new FileWriter(archivoRuta);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(fileContent.toString());
-            bufferedWriter.close();
-
-            // Mostrar un mensaje de éxito
-            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-            alerta.setTitle("Guardado en archivo");
-            alerta.setContentText("Los datos se han guardado en el archivo correctamente.");
-            alerta.showAndWait();
-        } catch (IOException e) {
-            // Mostrar un mensaje de error en caso de excepción
-            Alert alerta = new Alert(Alert.AlertType.ERROR);
-            alerta.setTitle("Error al guardar en archivo");
-            alerta.setContentText("Se produjo un error al guardar los datos en el archivo.");
+            alerta.setHeaderText("Mensaje de informacion");
+            alerta.setTitle("Dialogo de advertencia");
+            alerta.setContentText("Es necesario escribir todos los datos");
+            // Actualizar la tabla y limpiar los campos de texto
+            tabla.setItems(nodos);
+            tabla.refresh();
+            IDE.setText("");
+            MARCA.setText("");
+            PRECIO.setText("");
+            TALLA.setText("");
+            UNIDADES.setText("");
+            COLOR.setText("");
+            TIPO.setText("");
             alerta.showAndWait();
         }
     }
@@ -432,71 +357,19 @@ public class TablaController implements Initializable {
             // Eliminar el último elemento de la pila
             nodos.remove(nodos.size() - 1);
 
-            // Abre el archivo para lectura y escritura
-            String archivoRuta = "src/Archivo/archivo.txt";
-            File archivo = new File(archivoRuta);
-
-            try {
-                // Crear un ObservableList para almacenar las líneas del archivo
-                ObservableList<String> lineas = FXCollections.observableArrayList();
-
-                // Leer todo el contenido del archivo y almacenarlo en el ObservableList
-                Scanner scanner = new Scanner(archivo);
-                while (scanner.hasNextLine()) {
-                    lineas.add(scanner.nextLine());
-                }
-                scanner.close();
-
-                // Abre el archivo nuevamente para escritura
-                FileWriter fileWriter = new FileWriter(archivoRuta);
-                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
-                // Escribir todas las líneas en el archivo, excepto la última
-                for (int i = 0; i < lineas.size() - 1; i++) {
-                    bufferedWriter.write(lineas.get(i));
-                    bufferedWriter.newLine();
-                }
-
-                // Cerrar el BufferedWriter
-                bufferedWriter.close();
-
-                // Mostrar un mensaje de éxito
-                Alert ale = new Alert(Alert.AlertType.INFORMATION);
-                ale.setHeaderText("Información");
-                ale.setContentText("Elemento eliminado al final de la lista y del archivo!");
-                ale.showAndWait();
-                tabla.refresh();
-            } catch (IOException e) {
-                // Mostrar un mensaje de error en caso de excepción
-                Alert alerta = new Alert(Alert.AlertType.ERROR);
-                alerta.setHeaderText("Error al eliminar");
-                alerta.setContentText("Se produjo un error al eliminar el elemento del archivo.");
-                alerta.showAndWait();
+            // Verificar si la pila aún no está vacía después de eliminar el elemento
+            if (!nodos.isEmpty()) {
+                // Establecer el nodo siguiente (sig) del nuevo último elemento en la pila como null
+                nodos.get(nodos.size() - 1).sig = null;
             }
+            Alert ale = new Alert(Alert.AlertType.INFORMATION);
+            ale.setHeaderText("Información");
+            ale.setContentText("Elemento eliminado al final de la lista!");
+            ale.showAndWait();
+            tabla.refresh();
         }
     }
 
-    @FXML
-    private void HistorialDCompras(ActionEvent event) {
-        if (historialCompras.isEmpty()) {
-            // Mostrar mensaje de advertencia si no hay compras en el historial
-            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-            alerta.setHeaderText("Historial de Compras");
-            alerta.setContentText("No hay compras registradas en el historial.");
-            alerta.showAndWait();
-        } else {
-            // Crear una cadena que contenga el historial de compras
-            StringBuilder historial = new StringBuilder();
-            for (String compra : historialCompras) {
-                historial.append(compra).append("\n");
-            }
-
-            // Mostrar el historial de compras en una alerta
-            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-            alerta.setHeaderText("Historial de Compras");
-            alerta.setContentText(historial.toString());
-            alerta.showAndWait();
-        }
-    }
+   
 
 }
