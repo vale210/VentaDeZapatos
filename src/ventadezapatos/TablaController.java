@@ -370,6 +370,27 @@ public class TablaController implements Initializable {
         }
     }
 
-   
+    @FXML
+    private void HistorialDCompras(ActionEvent event) {
+        if (historialCompras.isEmpty()) {
+            // Mostrar mensaje de advertencia si no hay compras en el historial
+            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+            alerta.setHeaderText("Historial de Compras");
+            alerta.setContentText("No hay compras registradas en el historial.");
+            alerta.showAndWait();
+        } else {
+            // Crear una cadena que contenga el historial de compras
+            StringBuilder historial = new StringBuilder();
+            for (String compra : historialCompras) {
+                historial.append(compra).append("\n");
+            }
+
+            // Mostrar el historial de compras en una alerta
+            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+            alerta.setHeaderText("Historial de Compras");
+            alerta.setContentText(historial.toString());
+            alerta.showAndWait();
+        }
+    }
 
 }
