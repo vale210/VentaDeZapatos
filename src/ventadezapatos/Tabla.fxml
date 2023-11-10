@@ -13,7 +13,7 @@
    <children>
       <Pane prefHeight="637.0" prefWidth="1016.0" style="-fx-background-color: EDC4B3;">
          <children>
-            <Button fx:id="menup" layoutX="187.0" layoutY="548.0" mnemonicParsing="false" onAction="#MenuP" prefHeight="49.0" prefWidth="158.0" style="-fx-background-color: CDB4DB;" text="Menu Principal">
+            <Button fx:id="menup" layoutX="129.0" layoutY="545.0" mnemonicParsing="false" onAction="#MenuP" prefHeight="49.0" prefWidth="158.0" style="-fx-background-color: CDB4DB;" text="Menu Principal">
                <font>
                   <Font name="System Bold Italic" size="23.0" />
                </font>
@@ -29,22 +29,22 @@
                   <TableColumn fx:id="tip" prefWidth="132.0" text="Tipo" />
               </columns>
             </TableView>
-            <Button fx:id="Busc" layoutX="857.0" layoutY="548.0" mnemonicParsing="false" onAction="#Busqueda" prefHeight="49.0" prefWidth="132.0" style="-fx-background-color: CDB4DB;" text="Buscar">
+            <Button fx:id="Busc" layoutX="848.0" layoutY="545.0" mnemonicParsing="false" onAction="#Busqueda" prefHeight="49.0" prefWidth="132.0" style="-fx-background-color: CDB4DB;" text="Buscar">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font>
             </Button>
-            <Button fx:id="Agreg" layoutX="699.0" layoutY="548.0" mnemonicParsing="false" onAction="#Push" prefHeight="49.0" prefWidth="132.0" style="-fx-background-color: CDB4DB;" text="Agregar">
+            <Button fx:id="Agreg" layoutX="668.0" layoutY="545.0" mnemonicParsing="false" onAction="#Push" prefHeight="49.0" prefWidth="132.0" style="-fx-background-color: CDB4DB;" text="Agregar">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font>
             </Button>
-            <Button fx:id="compr" layoutX="546.0" layoutY="548.0" mnemonicParsing="false" onAction="#CompID" prefHeight="49.0" prefWidth="132.0" style="-fx-background-color: CDB4DB;" text="Comprar">
+            <Button fx:id="compr" layoutX="508.0" layoutY="545.0" mnemonicParsing="false" onAction="#CompID" prefHeight="49.0" prefWidth="132.0" style="-fx-background-color: CDB4DB;" text="Comprar">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font>
             </Button>
-            <Button fx:id="elimn" layoutX="375.0" layoutY="548.0" mnemonicParsing="false" onAction="#Pop" prefHeight="49.0" prefWidth="132.0" style="-fx-background-color: CDB4DB;" text="Eliminar">
+            <Button fx:id="elimn" layoutX="337.0" layoutY="545.0" mnemonicParsing="false" onAction="#Pop" prefHeight="49.0" prefWidth="132.0" style="-fx-background-color: CDB4DB;" text="Eliminar">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font>
@@ -63,7 +63,6 @@
             <Label layoutX="635.0" layoutY="37.0" text="Unidades" />
             <Label layoutX="646.0" layoutY="113.0" text="Color" />
             <Label layoutX="854.0" layoutY="37.0" text="Tipo" />
-            <Button fx:id="comp" layoutX="26.0" layoutY="548.0" mnemonicParsing="false" onAction="#HistorialDCompras" prefHeight="49.0" prefWidth="142.0" style="-fx-background-color: CDB4DB;" text="Historial De Compras" />
          </children>
       </Pane>
    </children>

@@ -25,12 +25,12 @@
             </Label>
             <TextField fx:id="usuario" layoutX="187.0" layoutY="218.0" prefHeight="28.0" prefWidth="227.0" />
             <TextField fx:id="contra" layoutX="187.0" layoutY="287.0" prefHeight="28.0" prefWidth="227.0" />
-            <Button fx:id="LOGEAR" layoutX="111.0" layoutY="362.0" mnemonicParsing="false" onAction="#Log" prefHeight="43.0" prefWidth="107.0" style="-fx-background-color: FF66C4;" text="Login">
+            <Button fx:id="LOGEAR" layoutX="111.0" layoutY="362.0" mnemonicParsing="false" onAction="#Log" style="-fx-background-color: FF66C4;" text="Login">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="Cancelacion" layoutX="249.0" layoutY="362.0" mnemonicParsing="false" onAction="#Cancel" prefHeight="43.0" prefWidth="99.0" style="-fx-background-color: a2d2ff;" text="Cancelar" />
+            <Button fx:id="Cancelacion" layoutX="268.0" layoutY="362.0" mnemonicParsing="false" onAction="#Cancel" prefHeight="43.0" prefWidth="80.0" style="-fx-background-color: 0097B2;" text="Cancelar" />
             <ImageView fitHeight="163.0" fitWidth="347.0" layoutX="75.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Imagenes/WhatsApp%20Image%202023-10-31%20at%203.42.13%20PM.jpeg" />

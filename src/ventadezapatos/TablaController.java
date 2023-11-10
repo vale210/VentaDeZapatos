@@ -82,16 +82,12 @@ public class TablaController implements Initializable {
     private TextField UNIDADES;
     @FXML
     private TextField TIPO;
-    private ObservableList<String> historialCompras;
-    @FXML
-    private Button comp;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        historialCompras = FXCollections.observableArrayList();
         nodos = FXCollections.observableArrayList();
         // Se crea un objeto File con la ruta del archivo "C:/Prueba/prueba.txt"
         File file = new File("src/Archivo/archivo.txt");
@@ -264,7 +260,6 @@ public class TablaController implements Initializable {
                 notify.setHeaderText("Cargando información...");
                 notify.setContentText("Pago Realizado Correctamente!");
                 notify.show();
-                historialCompras.add("Compra: " + zap.getMarca() + ", Cantidad: " + cantidadComprar + ", Total: $" + (zap.getPrecio() * cantidadComprar));
             }
 
             if (zap.getUnidades() <= 0) {
@@ -473,29 +468,6 @@ public class TablaController implements Initializable {
                 alerta.setContentText("Se produjo un error al eliminar el elemento del archivo.");
                 alerta.showAndWait();
             }
-        }
-    }
-
-    @FXML
-    private void HistorialDCompras(ActionEvent event) {
-        if (historialCompras.isEmpty()) {
-            // Mostrar mensaje de advertencia si no hay compras en el historial
-            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-            alerta.setHeaderText("Historial de Compras");
-            alerta.setContentText("No hay compras registradas en el historial.");
-            alerta.showAndWait();
-        } else {
-            // Crear una cadena que contenga el historial de compras
-            StringBuilder historial = new StringBuilder();
-            for (String compra : historialCompras) {
-                historial.append(compra).append("\n");
-            }
-
-            // Mostrar el historial de compras en una alerta
-            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-            alerta.setHeaderText("Historial de Compras");
-            alerta.setContentText(historial.toString());
-            alerta.showAndWait();
         }
     }
 
