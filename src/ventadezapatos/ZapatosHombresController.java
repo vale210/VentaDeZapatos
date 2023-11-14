@@ -26,12 +26,6 @@ public class ZapatosHombresController implements Initializable {
 
     @FXML
     private Button menup;
-    @FXML
-    private Button bcom1;
-    @FXML
-    private Button bcom2;
-    @FXML
-    private Button bcom3;
 
     /**
      * Initializes the controller class.
@@ -67,16 +61,5 @@ public class ZapatosHombresController implements Initializable {
         newStage.show();
     }
 
-    @FXML
-    private void comp1(ActionEvent event) {
-    }
-
-    @FXML
-    private void comb2(ActionEvent event) {
-    }
-
-    @FXML
-    private void comb3(ActionEvent event) {
-    }
 
 }

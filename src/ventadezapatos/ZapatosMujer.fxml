@@ -8,80 +8,110 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="554.0" prefWidth="990.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ventadezapatos.ZapatosMujerController">
+<VBox prefHeight="635.0" prefWidth="1128.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ventadezapatos.ZapatosMujerController">
    <children>
-      <Pane prefHeight="563.0" prefWidth="990.0">
+      <Pane prefHeight="634.0" prefWidth="1126.0">
          <children>
-            <ImageView fitHeight="603.0" fitWidth="990.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="638.0" fitWidth="1128.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Imagenes/WhatsApp%20Image%202023-10-31%20at%2010.29.36%20AM.jpeg" />
                </image>
             </ImageView>
-            <Button fx:id="MenuP" layoutX="46.0" layoutY="29.0" mnemonicParsing="false" onAction="#Regresar" style="-fx-background-color: A2D2FF;" text="Menu Principal">
+            <Button fx:id="MenuP" layoutX="36.0" layoutY="29.0" mnemonicParsing="false" onAction="#Regresar" prefHeight="50.0" prefWidth="205.0" style="-fx-background-color: A2D2FF;" text="Menu Principal">
                <font>
                   <Font name="System Bold Italic" size="24.0" />
                </font>
             </Button>
-            <ImageView fitHeight="208.0" fitWidth="226.0" layoutX="95.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="167.0" fitWidth="189.0" layoutX="155.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Imagenes/WhatsApp%20Image%202023-10-31%20at%208.57.38%20AM.jpeg" />
                </image>
             </ImageView>
-            <Label layoutX="142.0" layoutY="359.0" text=" $ 25.0">
+            <Label layoutX="211.0" layoutY="308.0" text=" $25.0">
                <font>
-                  <Font name="System Bold" size="43.0" />
+                  <Font name="System Bold" size="26.0" />
                </font>
             </Label>
-            <Label layoutX="186.0" layoutY="412.0" text="NIKE">
+            <Label layoutX="229.0" layoutY="94.0" text="NIKE">
                <font>
                   <Font size="19.0" />
                </font>
             </Label>
-            <Button fx:id="copm1" layoutX="136.0" layoutY="448.0" mnemonicParsing="false" onAction="#Compr1" style="-fx-background-color: A2D2FF;" text="Comprar">
-               <font>
-                  <Font name="System Bold" size="25.0" />
-               </font>
-            </Button>
-            <ImageView fitHeight="204.0" fitWidth="226.0" layoutX="388.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="167.0" fitWidth="205.0" layoutX="461.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Imagenes/WhatsApp%20Image%202023-10-31%20at%208.57.48%20AM.jpeg" />
                </image>
             </ImageView>
-            <Label layoutX="434.0" layoutY="359.0" text=" $ 40.0">
+            <Label layoutX="513.0" layoutY="308.0" text=" $ 40.0">
                <font>
-                  <Font name="System Bold" size="43.0" />
+                  <Font name="System Bold" size="26.0" />
                </font>
             </Label>
-            <Label layoutX="478.0" layoutY="412.0" text="NIKE">
+            <Label layoutX="531.0" layoutY="94.0" text="NIKE">
                <font>
                   <Font size="19.0" />
                </font>
             </Label>
-            <Button fx:id="comp2" layoutX="428.0" layoutY="448.0" mnemonicParsing="false" onAction="#compr2" style="-fx-background-color: A2D2FF;" text="Comprar">
-               <font>
-                  <Font name="System Bold" size="25.0" />
-               </font>
-            </Button>
-            <ImageView fitHeight="204.0" fitWidth="226.0" layoutX="680.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="167.0" fitWidth="185.0" layoutX="753.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Imagenes/WhatsApp%20Image%202023-10-31%20at%208.57.59%20AM.jpeg" />
                </image>
             </ImageView>
-            <Label layoutX="726.0" layoutY="359.0" text=" $ 40.0">
+            <Label layoutX="804.0" layoutY="308.0" text=" $ 40.0">
                <font>
-                  <Font name="System Bold" size="43.0" />
+                  <Font name="System Bold" size="26.0" />
                </font>
             </Label>
-            <Label layoutX="770.0" layoutY="412.0" text="NIKE">
+            <Label layoutX="823.0" layoutY="94.0" text="NIKE">
                <font>
                   <Font size="19.0" />
                </font>
             </Label>
-            <Button fx:id="comp3" layoutX="720.0" layoutY="448.0" mnemonicParsing="false" onAction="#compr3" style="-fx-background-color: A2D2FF;" text="Comprar">
+            <ImageView fitHeight="167.0" fitWidth="189.0" layoutX="155.0" layoutY="381.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../Imagenes/WhatsApp%20Image%202023-11-14%20at%202.13.49%20PM%20(2).jpeg" />
+               </image>
+            </ImageView>
+            <Label layoutX="211.0" layoutY="559.0" text=" $25.0">
                <font>
-                  <Font name="System Bold" size="25.0" />
+                  <Font name="System Bold" size="26.0" />
                </font>
-            </Button>
+            </Label>
+            <Label layoutX="216.0" layoutY="345.0" text="ADIDAS">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="167.0" fitWidth="205.0" layoutX="461.0" layoutY="381.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Imagenes/WhatsApp%20Image%202023-10-31%20at%208.57.48%20AM.jpeg" />
+               </image>
+            </ImageView>
+            <Label layoutX="513.0" layoutY="559.0" text=" $ 40.0">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Label>
+            <Label layoutX="516.0" layoutY="345.0" text="JORDAN">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="167.0" fitWidth="185.0" layoutX="753.0" layoutY="381.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Imagenes/WhatsApp%20Image%202023-11-14%20at%202.13.49%20PM%20(4).jpeg" />
+               </image>
+            </ImageView>
+            <Label layoutX="804.0" layoutY="559.0" text=" $ 40.0">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Label>
+            <Label layoutX="810.0" layoutY="345.0" text="ADIDAS">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>

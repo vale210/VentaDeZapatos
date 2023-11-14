@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXML2.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
 package ventadezapatos;
 
@@ -15,50 +15,32 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 /**
+ * FXML Controller class
  *
  * @author jesus
  */
-public class VentanaPrincipalController implements Initializable {
+public class VentanaBebesController implements Initializable {
 
     @FXML
-    private Label label;
-    @FXML
-    private Button ButtonWomen;
-    @FXML
-    private Button Bbaby;
-    @FXML
-    private Button Bmen;
-    @FXML
-    private Button tablaaa;
+    private Button MENUp;
 
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }
+    }    
 
     @FXML
-    private void womenb(ActionEvent event) throws IOException {
+    private void menu(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        openWindow("ZapatosMujer.fxml", stage);
+        openWindow("VentanaPrincipal.fxml", stage);
     }
-
-    @FXML
-    private void BabyB(ActionEvent event) throws IOException{
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        openWindow("VentanaBebes.fxml", stage);
-    }
-
-    @FXML
-    private void MenB(ActionEvent event) throws IOException {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        openWindow("ZapatosHombres.fxml", stage);
-    }
-
-
+    
     private void openWindow(String fxmlFileName, Stage stage) throws IOException {
         // Crear un nuevo cargador de FXML
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
@@ -75,11 +57,4 @@ public class VentanaPrincipalController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
-    @FXML
-    private void ventanatabla(ActionEvent event) throws IOException {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        openWindow("Tabla.fxml", stage);
-    }
-
 }

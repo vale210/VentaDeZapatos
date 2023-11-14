@@ -13,9 +13,9 @@
    <children>
       <Pane prefHeight="637.0" prefWidth="1016.0" style="-fx-background-color: EDC4B3;">
          <children>
-            <Button fx:id="menup" layoutX="187.0" layoutY="548.0" mnemonicParsing="false" onAction="#MenuP" prefHeight="49.0" prefWidth="158.0" style="-fx-background-color: CDB4DB;" text="Menu Principal">
+            <Button fx:id="menup" layoutX="187.0" layoutY="548.0" mnemonicParsing="false" onAction="#MenuP" prefHeight="49.0" prefWidth="158.0" style="-fx-background-color: CDB4DB;" text="Menu">
                <font>
-                  <Font name="System Bold Italic" size="23.0" />
+                  <Font name="System Bold" size="23.0" />
                </font>
             </Button>
             <TableView fx:id="tabla" layoutX="95.0" layoutY="188.0" prefHeight="330.0" prefWidth="819.0">
@@ -63,7 +63,10 @@
             <Label layoutX="635.0" layoutY="37.0" text="Unidades" />
             <Label layoutX="646.0" layoutY="113.0" text="Color" />
             <Label layoutX="854.0" layoutY="37.0" text="Tipo" />
-            <Button fx:id="comp" layoutX="26.0" layoutY="548.0" mnemonicParsing="false" onAction="#HistorialDCompras" prefHeight="49.0" prefWidth="142.0" style="-fx-background-color: CDB4DB;" text="Historial De Compras" />
+            <Button fx:id="comp" layoutX="26.0" layoutY="548.0" mnemonicParsing="false" onAction="#HistorialDCompras" prefHeight="49.0" prefWidth="142.0" style="-fx-background-color: CDB4DB;" text="Historial">
+               <font>
+                  <Font name="System Bold" size="23.0" />
+               </font></Button>
          </children>
       </Pane>
    </children>

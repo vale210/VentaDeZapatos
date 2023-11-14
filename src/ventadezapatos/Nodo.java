@@ -17,7 +17,8 @@ public class Nodo {
     String color;
     String tipo;
     
-    Nodo sig, ant;
+    Nodo sig;
+    Nodo ant;
 
     public Nodo(String ID, String marca, double precio, int talla, int unidades, String color, String tipo) {
         this.ID = ID;

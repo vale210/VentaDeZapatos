@@ -25,12 +25,6 @@ import javafx.stage.Stage;
 public class ZapatosMujerController implements Initializable {
 
     @FXML
-    private Button copm1;
-    @FXML
-    private Button comp2;
-    @FXML
-    private Button comp3;
-    @FXML
     private Button MenuP;
 
     /**
@@ -41,17 +35,6 @@ public class ZapatosMujerController implements Initializable {
         // TODO
     }
 
-    @FXML
-    private void Compr1(ActionEvent event) {
-    }
-
-    @FXML
-    private void compr2(ActionEvent event) {
-    }
-
-    @FXML
-    private void compr3(ActionEvent event) {
-    }
 
     @FXML
     private void Regresar(ActionEvent event) throws IOException {
